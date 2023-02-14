@@ -18,7 +18,10 @@ netifaces  网络
 scipy   科学计算, 数值计算  
 sympy  科学计算, 符号计算  
 control   控制库  python-control  
-
+pygame 基于Python的多媒体开发和游戏软件开发模块，包含大量游戏和图像处理功能。
+pyopengl   图形库OpenGL和它相关的API。
+subprocess.run 调用系统命令行的 subprocess
+thread6        多线程库，threading
 
 sudo apt-get install libatlas-base-dev 
 libatlas-base-dev: Automatically Tuned Linear Algebra Software, generic static
@@ -65,7 +68,13 @@ pip用法
 # 导出当前已经安装包
 pip freeze > requirements.txt
 ----------------------------------------------------------------------
+指定源（豆瓣）
+sudo pip install -i http://pypi.douban.com/simple/ --trusted-host=pypi.douban.com/simple xxxx_name
+----------------------------------------------------------------------
 
+强行指定pip全局用豆瓣源（豆瓣源不支持anaconda）（规避anaconda的问题）
+pip config set global.index-url https://pypi.douban.com/simple/
+然后 pip install 就行
 ---------------------------------------------------------------文本处理与格式转换
 
 Chardet 字符编码探测器，可以自动检测文本、网页、xml的编码。

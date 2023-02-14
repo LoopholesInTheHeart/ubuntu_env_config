@@ -20,3 +20,9 @@ ros的源
 ros相关
 鱼香 https://fishros.com/#/fish_home
 鱼香ROS指令 wget http://fishros.com/install -O fishros && . fishros
+
+
+python 豆瓣源
+http://pypi.douban.com/simple/ 
+用法
+sudo pip install -i http://pypi.douban.com/simple/ --trusted-host=pypi.douban.com/simple xxxx_name

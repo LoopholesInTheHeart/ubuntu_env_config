@@ -8,3 +8,7 @@ then:
 pip install edx-dl
 will work on conda env this library
 将在 conda env 这个库上工作
+
+强行指定pip用豆瓣源（豆瓣源不支持anaconda）
+pip config set global.index-url https://pypi.douban.com/simple/
+然后 pip install 就行
