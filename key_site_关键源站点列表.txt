@@ -1,0 +1,22 @@
+
+清华大学开源站点 https://mirrors.tuna.tsinghua.edu.cn/#
+北京外国语大学开源站点 https://mirrors.bfsu.edu.cn/#
+中国科学技术大学 https://mirrors.ustc.edu.cn
+浙江大学 https://mirrors.zju.edu.cn
+校园网联合镜像站查询 https://mirrors.cernet.edu.cn/site
+
+
+阿里云源 https://developer.aliyun.com/mirror/ubuntu
+阿里云开发者 https://developer.aliyun.com/mirror/
+
+腾讯源 https://mirrors.tencent.com/
+华为云主页 https://mirrors.huaweicloud.com/home
+华为云源 https://repo.huaweicloud.com/ubuntu/
+
+
+ros的源
+科大 https://mirrors.ustc.edu.cn/help/ros.html
+清华 https://mirrors.tuna.tsinghua.edu.cn/help/ros/
+ros相关
+鱼香 https://fishros.com/#/fish_home
+鱼香ROS指令 wget http://fishros.com/install -O fishros && . fishros

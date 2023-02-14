@@ -1,0 +1,25 @@
+首先是依赖
+sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+然后是下载
+可以从北外源下载 （清华源没有桌面版，阿里云源也没有）
+北京外国语大学开源站点  https://mirrors.bfsu.edu.cn/anaconda/archive/
+
+下载完成后执行
+bash /home/kevin/Downloads/Anaconda3-2020.11-Linux-x86_64.sh 
+一路yes或者enter，默认安装在 /home/${USER}/anaconda3/ 路径下
+然后重启bash，或者重新source ./bashrc
+
+安装？或者验证
+conda install anaconda-navigator
+
+anaconda-navigator
+---------------------------------------------
+升级下
+conda update anaconda
+重新装下
+conda update conda
+conda update anaconda-navigator
+conda update navigator-updater
+
+
+参考：https://zhuanlan.zhihu.com/p/344776352  中的 Anaconda 部分

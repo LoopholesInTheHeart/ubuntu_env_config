@@ -1,0 +1,67 @@
+
+
+设置交换内存容量大小 32G
+sudo fallocate -l 32G /swapfile
+sudo dd if=/dev/zero of=/swapfile bs=1M count=32768
+sudo dd if=/dev/zero of=/swapfile bs=512M count=64
+ ------------------------------------------------------------------------
+ 
+ We can resolve this issue by deleting old swap file /swapfile and create new one and then re-formatting it as swap.
+我们可以通过删除旧的交换文件 /swapfile 并创建一个新文件，然后将其重新格式化为交换来解决此问题。
+sudo dd if=/dev/zero of=/swapfile bs=1M count=32768 status=progress
+------------------------------------------------------------------------
+sudo dd if=/dev/random of=/swapfile bs=1M count=32768 status=progress
+------------------------------------------------------------------------
+检查是否已启用 SWAP 空间
+sudo swapon --show   #未启用SWAP分区的话，执行此命令将不会有任何输出
+复制
+创建 SWAP 文件
+在添加 SWAP 文件时，建议创建的文件大小为实际物理内存的 2-3 倍。
+
+sudo fallocate -l 2G /swapfile      #创建大小依据实际物理内存大小自行调整
+#或使用dd命令创建
+sudo dd if=/dev/zero of=/swapfile bs=512M count=4
+复制
+创建完成后，给与 SWAP 文件 600 权限
+
+sudo chmod 600 /swapfile
+复制
+标注 SWAP 区域
+
+sudo mkswap /swapfile
+复制
+激活 SWAP 分区
+
+sudo swapon /swapfile
+复制
+查看 SWAP 分区是否工作
+
+sudo swapon --show
+sudo free -h
+复制
+将创建的 SWAP 分区设置为永久分区,将 SWAP 路径写入到/etc/fstab文件中
+
+/swapfile swap swap defaults 0 0
+复制
+删除 SWAP 分区
+停用 SWAP
+sudo swapoff -v /swapfile
+复制
+在/etc/fstab文件中删除 SWAP 路径。
+删除 SWAP 分区文件
+
+sudo rm /swapfile
+复制
+Swappiness 用于定义 Linux 系统使用 SWAP 空间的频率。Swappiness 值可以从 0 至 100，较低的值会让内核尽可能少的使用 SWAP 空间，而较高的值将让 Linux Kernel 能够更加积极地使用 SWAP 分区。默认的 Swappiness 值为 60，这里可以根据实际需要自行调整。
+
+调整 SWAP 分区活跃度（Swappiness）
+查看当前系统设置的 Swappiness 值
+cat /proc/sys/vm/swappiness
+复制
+临时调整系统 Swappiness 值
+sudo sysctl vm.swappiness=60    #这里的值可以设置在0-100，根据环境需求自行调整
+复制
+设置永久性的 Swappiness 值
+编辑/etc/sysctl.conf文件，在最后添加以下内容
+
+vm.swappiness=60

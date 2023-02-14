@@ -1,0 +1,98 @@
+anaconda 报错如下内容：
+
+    versions=[vsdata.get('productVersion')],
+AttributeError: 'str' object has no attribute 'get'
+
+原因
+anaconda在启动时候检查vscode版本，但是给的链接不正确，必须修改这个链接成以下的版本检查链接
+
+https://update.code.visualstudio.com/api/update/linux-x64/stable/version
+
+
+目标文件
+/home/${USER}/anaconda3/lib/python3.7/site-packages/anaconda_navigator/api/anaconda_api.py
+搜索（原作者找到的是903行，我是995行）
+ VSCODE_ENDPOINT = (
+把原来的
+        VSCODE_ENDPOINT = (
+            'https://vscode-update.azurewebsites.net/api/update'
+            '/{}/stable/version'.format(VSCODE_SUBDIR)
+        )
+换成
+
+        VSCODE_ENDPOINT = (
+            #'https://vscode-update.azurewebsites.net/api/update'
+            #'/{}/stable/version'.format(VSCODE_SUBDIR)
+            #'https://update.code.visualstudio.com/api/update'
+            #'/{}-user/stable/version'.format(VSCODE_SUBDIR)    
+            'https://update.code.visualstudio.com/api/update'
+            '/linux-x64/stable/version'.format(VSCODE_SUBDIR)
+        )
+结束
+
+
+
+why: 原始链接更新就不对，无法访问到vscode的最新版本，而且平台是amd64
+
+解决方案参考：https://qiita.com/yasushi-jp/items/3b2b822be0c66b3839ba
+但是这个解决方案的参考的链接不是完全适用，最好用最开始那个，或者访问下面这个网址找
+如何获取最新版本号的链接 https://vscode-docs.readthedocs.io/en/stable/supporting/howtoupdate/
+或者参考 https://code.visualstudio.com/docs/supporting/FAQ  的 Previous release versions这部分问答，找到对应平台的链接
+
+{
+anaconda_api.pyの811行目付近を見てみると以下となっていました。
+
+anaconda_api.py（803～818行目）
+        # Add VSCode global app (if it does not exist as a conda package)
+        if not vscode_conda_package_exists: 
+            if self.is_vscode_available():
+                vsdata = self.vscode_application_data()  # Check vscode version ← 806行目
+                app = GLOBAL_VSCODE_APP
+                applications[app] = dict(
+                    name=app,
+                    description=APPS_DESCRIPTIONS[app],
+                    versions=[vsdata.get('productVersion')],   # ← 811行目
+                    command=self._VSCODE_EXE,
+                    image_path=image_paths[app],
+                    needs_license=False,
+                    non_conda=True,
+                )
+
+        return applications
+811行目の
+versions=[vsdata.get('productVersion')],
+のvsdataのgetメソッドでエラーが発生していました。
+vsdataは806行目の
+vsdata = self.vscode_application_data()
+で設定されています。
+
+そこで、vscode_application_dataメソッドを検索してみました。
+vscode_application_data付近のコードは以下となっています。
+
+anaconda_api.py（964～974行目）
+    def vscode_application_data(self):
+        """Get vscode data from microsoft rest api."""
+        data = {}
+        url = self._VSCODE_ENDPOINT     # ←967行目
+        if url:
+            data = self._download_api.get_url(
+                url=url,
+                as_json=True,
+                non_blocking=False,
+            )
+        return data
+967行目でurl = self._VSCODE_ENDPOINTとurlが設定されているので、_VSCODE_ENDPOINTを検索してみました。
+
+anaconda_api.py（918行目）
+        self._VSCODE_ENDPOINT = VSCODE_ENDPOINT
+VSCODE_ENDPOINTが設定されているので、VSCODE_ENDPOINTで検索してみます。
+
+anaconda_api.py（902～905行目）
+        VSCODE_ENDPOINT = (
+            'https://vscode-update.azurewebsites.net/api/update'
+            '/{}/stable/version'.format(VSCODE_SUBDIR)
+        )
+VSCODE_SUBDIRの値にはwin32-x64が設定されているため、VSCODE_ENDPOINTは
+https\://vscode-update.azurewebsites.net/api/update/win32-x64/stable/version
+となっており、このURLで接続できないのが原因のようです。
+}

@@ -1,0 +1,10 @@
+直接安装有问题，
+可以换conda源之后，切完环境直接用pip装
+
+在终端类型中：
+conda activate <env_name>
+then:
+然后：
+pip install edx-dl
+will work on conda env this library
+将在 conda env 这个库上工作

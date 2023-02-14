@@ -1,0 +1,6 @@
+命中:8 http://mirrors.tuna.tsinghua.edu.cn/ros2/ubuntu focal InRelease                        
+错误:1 http://mirrors.tuna.tsinghua.edu.cn/ubuntu focal InRelease        
+  由于没有公钥，无法验证下列签名： NO_PUBKEY 3B4FE6ACC0B21F32 NO_PUBKEY 871920D1991BC93C
+
+执行以下命令 （注意实际的秘钥）
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 871920D1991BC93C

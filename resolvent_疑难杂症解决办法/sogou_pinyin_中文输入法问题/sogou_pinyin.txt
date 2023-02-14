@@ -1,0 +1,45 @@
+Ubuntu20.04安装搜狗输入法步骤
+
+诊断 fcitx框架的问题  fcitx-diagnose
+注意 实际执行时候，必须先装依赖，否则可能有问题
+-------------------------------------
+
+更新源
+在终端执行 sudo apt update
+-------------------------------------
+
+安装输入法依赖
+在终端执行
+sudo apt install libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2
+安装完前序工作后，在终端执行
+sudo apt install libgsettings-qt1
+
+-------------------------------------
+
+安装fcitx输入法框架
+在终端输入 
+sudo apt install fcitx
+
+设置fcitx为系统输入法
+点击左下角菜单选择语言支持，将语言选择为fcitx（如下图二）
+
+设置fcitx开机自启动
+在终端执行
+sudo cp /usr/share/applications/fcitx.desktop /etc/xdg/autostart/
+
+-------------------------------------
+
+卸载系统ibus输入法框架
+在终端执行 sudo apt purge ibus
+
+-------------------------------------
+
+安装搜狗输入法
+在官网下载搜狗输入法安装包，并安装，安装命令
+sudo dpkg -i 安装包名
+
+重启电脑、调出输入法
+1.重启电脑
+2.查看右上角，可以看到“搜狗”字样，在输入窗口即可且出搜狗输入法。
+3. 没有“搜狗”字样，选择配置，将搜狗加入输入法列表即可
+至此，搜狗输入法安装完毕

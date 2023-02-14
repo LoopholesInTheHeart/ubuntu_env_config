@@ -1,0 +1,27 @@
+安装ssh，方便远程
+apt install -y openssh-server
+
+安装 ifconfig
+sudo apt install net-tools 
+
+安装 htop iftop iotop ， 常见运维工具，htop看cpu，iftop看网络，iotop看磁盘io读写
+sudo apt install net-tools htop iftop iotop
+
+安装git
+apt-get install git
+
+安装github桌面版本 （注意 必须先装 git本身) 略
+
+鱼香ROS，配环境很方便，就是默认好像科大的源
+wget http://fishros.com/install -O fishros && . fishros
+
+
+
+
+
+传感器温度监控
+sudo apt install lm-sensors 
+安装完成之后执行（一路yes和enter）
+sudo sensors-detect
+开始看温度
+watch -n 1  sensors

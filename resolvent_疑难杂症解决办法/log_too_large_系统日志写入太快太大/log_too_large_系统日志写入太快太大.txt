@@ -1,0 +1,53 @@
+问题:
+系统卡死,发现磁盘容量很快变慢
+发现是日志问题,系统日志很快速的跑满,du -f 定位到/var/log 文件夹 ,
+watch -n 1 ls -alh /var/log/cups/  显示该文件夹下的error_log日志快速增长
+文件内容包含权限提示等
+
+
+排查过程
+
+首先安装以下工具
+安装 htop iftop iotop ， 常见运维工具，htop看cpu，iftop看网络，iotop看磁盘io读写
+sudo apt install net-tools htop iftop iotop
+
+执行 sudo iotop 确认反复读写的系统命令是啥,确认为 cupsd ,
+以 sudo htop 停掉命令,
+sudo find / -name "cupsd" 找到命令所在位置
+联合搜索指令及报错内容,确认为权限问题
+
+然后执行以下操作
+
+sudo chown -R root:root /usr/lib/cups/* && \
+sudo chmod -R 755 /usr/lib/cups/* && \
+sudo /etc/init.d/cups restart
+
+---------------------------------------------
+参考链接:   https://askubuntu.com/questions/648807/cupsd-using-100-cpu-creating-large-80gb-error-log
+
+On Debian 9在 Debian 9 上
+user@machine: sudo su
+用户@机器：sudo su
+root@machine:
+根@机器：
+
+chown -R root:root /usr/lib/cups/* && \
+chmod -R 755 /usr/lib/cups/* && \
+/etc/init.d/cups restart
+return:
+返回：
+
+ ok Restarting cups via systemctl cups.service
+
+and save my log and my cpu
+并保存我的日志和我的 cpu
+Share分享
+Improve this answer改进这个答案
+Follow 跟随
+answered Jun 26, 2019 at 1:42
+2019 年 6 月 26 日 1:42 回答
+Nolwennig's user avatar
+Nolwennig
+诺文尼格
+13144 bronze badges
+1314 4个青铜徽章

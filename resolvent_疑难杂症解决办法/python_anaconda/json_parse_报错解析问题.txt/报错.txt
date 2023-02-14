@@ -1,0 +1,9 @@
+/home/xxxUserName/anaconda3/lib/python3.7/site-packages/_distutils_hack/__init__.py:33: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+2023-02-12 04:56:49,859 - ERROR community.load_content:203
+('/home/xxxUserName/.anaconda/navigator/content/webinars.json', JSONDecodeError('Expecting value: line 1 column 1 (char 0)'))
+
+
+
+
+conda update setuptools

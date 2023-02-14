@@ -1,2 +1,1 @@
-# ubuntu_env_config
-ubuntu environment configuration and troubleshooting
+写着自用

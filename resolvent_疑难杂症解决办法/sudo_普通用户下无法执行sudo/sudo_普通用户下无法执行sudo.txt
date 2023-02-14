@@ -1,0 +1,49 @@
+误修改sudo文件权限,执行sudo后报错
+sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set
+
+以root权限执行以下命令,如果无法登录root,可以进恢复模式
+chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+
+
+误修改/usr/lib/sudo/相关文件权限,执行sudo后报错
+sudo: error in /etc/sudo.conf, line 0 while loading plugin 'sudoers_policy'
+sudo: /usr/lib/sudo/sudoers.so must only be writable by owner
+sudo: fatal error, unable to load plugins
+
+chmod 644 /usr/lib/sudo/sudoers.so
+chown -R root /usr/lib/sudo
+
+------------------------------------------------------------------------------
+参考链接:  https://askubuntu.com/questions/452860/usr-bin-sudo-must-be-owned-by-uid-0-and-have-the-setuid-bit-set
+As you'll read on this answer on SO, this problem is not as hard as people are making it. You can get the sudo command working again without a reinstall by following these simple steps:
+正如您将在 SO 上阅读此答案一样，这个问题并不像人们所做的那么难。通过执行以下简单步骤，无需重新安装即可使 sudo 命令再次运行：
+Log out as the current user, then log back in as root.
+以当前用户身份注销，然后以 root 身份重新登录。
+Execute chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+执行 chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+Log out as root, then log back in as the current user.
+以 root 身份注销，然后以当前用户身份重新登录。
+This does the trick and is much quicker and less painful than the "nuclear option" recommended in other answers.
+这样做可以解决问题，并且比其他答案中推荐的“核选项”更快、更轻松。
+If your root password is not set, you can boot in Recovery Mode to set it.
+如果你的 root 密码没有设置，你可以在恢复模式下启动来设置它。
+Note that this will resolve the titular error /usr/bin/sudo must be owned by uid 0 and have the setuid bit set but if like the OP you did more than mess up the permissions of the /usr/bin/sudo file, a more "nuclear" option may in fact make more sense.
+请注意，这将解决名义错误 /usr/bin/sudo 必须由 uid 0 拥有并设置 setuid 位，但如果像 OP 一样，你所做的不仅仅是搞乱 /usr/bin/sudo 文件的权限，a更多“核”选项实际上可能更有意义。
+
+
+
+------------------------------------------------------------------------------------------------
+参考链接:   https://blog.csdn.net/lileihappy/article/details/79214156
+出现场景：
+
+服务器运行一个flask应用，需要sudo到www-data下面运行flask的一个自定义命令，操作后台数据库添加一条数据。当运行sudo –u www-data时出现
+
+sudo: error in /etc/sudo.conf, line 0 while loading plugin 'sudoers_policy'
+sudo: /usr/lib/sudo/sudoers.so must only be writable by owner
+sudo: fatal error, unable to load plugins
+
+解决方案：
+执行下面两个命令修改文件权限
+
+$ chmod 644 /usr/lib/sudo/sudoers.so
+$ chown -R root /usr/lib/sudo

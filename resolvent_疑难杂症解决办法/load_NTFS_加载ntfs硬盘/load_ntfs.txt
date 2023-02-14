@@ -1,0 +1,19 @@
+ 
+我的是硬盘， 名字叫  /dev/nvme0n1p4
+所以中间几部替换下
+mkdir ~/NTFS_disk
+sudo mount -t ntfs-3g /dev/nvme0n1p4 ~/NTFS_disk
+--------------------------------------------------
+需要先安装ntfs-3g的支持
+sudo apt install ntfs-3g
+
+然后创建一个用来装载ntfs硬盘的目录
+mkdir ~/usb
+
+查看硬盘的名字
+sudo fdisk -l
+比如我的硬盘名字是
+dev/sdb 1
+
+那么我就用下面的命令装载
+sudo mount -t ntfs-3g /dev/sdb1 ~/usb

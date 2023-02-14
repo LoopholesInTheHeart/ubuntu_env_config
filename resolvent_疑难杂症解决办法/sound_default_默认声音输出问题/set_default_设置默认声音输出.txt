@@ -1,0 +1,35 @@
+参考链接  https://askubuntu.com/questions/1038490/how-do-you-set-a-default-audio-output-device-in-ubuntu
+
+简单说就是先找到自带的声音输出的设备，在桌面启动程序脚本里面增加一个设置输出设备的命令
+但是有个问题， 我的nuc的hdmi的声音输出在插上系统自带的3.5mm音频口的时候就不识别了
+还有type-c(非雷电)的小尾巴不识别，也是个麻烦的事情
+用蓝牙还得下蓝牙管理器   sudo apt-get install bluetooth bluez blueman
+--------------------------------------------------------------------------------------
+参考链接  https://askubuntu.com/questions/1038490/how-do-you-set-a-default-audio-output-device-in-ubuntu
+
+The simple workaround I found is adding the pactl set default sink command in startup applications.
+我发现的简单解决方法是在启动应用程序中添加 pactl set default sink 命令。
+Run: pactl list short sinks
+运行：pactl list short sinks
+Note the device name you want to use as default
+记下您要用作默认值的设备名称
+Try to run: pactl set-default-sink <Your_Device_Name>
+尝试运行：pactl set-default-sink <Your_Device_Name>
+
+This should work without giving you an error message.
+这应该可以工作而不会给您错误消息。
+Open the application "Startup Applications" (Should be preinstalled on Ubuntu)
+打开应用程序“启动应用程序”（应该预装在 Ubuntu 上）
+Click on "Add"
+点击“添加”
+Give your startup item a name
+为您的启动项命名
+Copy your command from above into the command field:
+将上面的命令复制到命令字段中：
+
+pactl set-default-sink 'Your-Device-Name'
+pactl set-default-sink '您的设备名称'
+Click on "Add".
+单击“添加”。
+You are now good to go. Your default audio device will be set on each boot and as such be persistent. If you want to change the default device simply edit the device name in startup applications command.
+你现在可以开始了。您的默认音频设备将在每次启动时设置，因此是持久的。如果要更改默认设备，只需在启动应用程序命令中编辑设备名称即可。

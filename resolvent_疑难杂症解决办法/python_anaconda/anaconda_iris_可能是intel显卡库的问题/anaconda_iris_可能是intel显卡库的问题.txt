@@ -1,0 +1,18 @@
+Solution 2方案二
+If you are using Anaconda to run this Python script, Anaconda may be the reason. This solution was taken from here (update 3), which in turn was taken from here.
+如果您使用 Anaconda 运行此 Python 脚本，Anaconda 可能就是原因。该解决方案取自此处（更新 3），而后者又取自此处。
+From the latter link:
+从后一个链接：
+According to online information, there is a problem with the libstdc++.so file in Anaconda (I use this commercial python distribution). It cannot be associated with the driver of the system, so we removed it and used the libstdc++ that comes with Linux. so creates a soft link there.
+根据网上的资料，Anaconda中的libstdc++.so文件有问题（我用的是这个商业python发行版）。它不能和系统的驱动相关联，所以我们去掉它，使用Linux自带的libstdc++。所以在那里创建了一个软链接。
+To solve this problem, run this in bash:
+要解决此问题，请在 bash 中运行：
+$ cd /home/$USER/miniconda/lib  
+#这一步可能是conda 或者anaconda路径  cd /home/${USER}/anaconda3/lib  
+$ mkdir backup  # Create a new folder to keep the original libstdc++
+$ mv libstd* backup  # Put all libstdc++ files into the folder, including soft links
+$ cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6  ./ # Copy the c++ dynamic link library of the system here
+$ ln -s libstdc++.so.6 libstdc++.so
+$ ln -s libstdc++.so.6 libstdc++.so.6.0.19
+where $USER should be your own username.
+$USER 应该是你自己的用户名
