@@ -15,8 +15,10 @@ apt-get install git
 鱼香ROS，配环境很方便，就是默认好像科大的源
 wget http://fishros.com/install -O fishros && . fishros
 
-
-
+安装中文字体
+sudo apt-get install ttf-wqy-microhei  #文泉驿-微米黑
+sudo apt-get install ttf-wqy-zenhei  #文泉驿-正黑
+sudo apt-get install xfonts-wqy #文泉驿-点阵宋体*
 
 
 传感器温度监控

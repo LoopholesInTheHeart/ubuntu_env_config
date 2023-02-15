@@ -1,0 +1,69 @@
+方案来源链接 https://www.tecmint.com/sub-process-usr-bin-dpkg-returned-an-error-in-ubuntu/
+
+
+It’s not uncommon to run into an issue of broken packages in Ubuntu and other Debian-based distributions. Sometimes, when you upgrade the system or install a software package, you may encounter the ‘Sub-process /usr/bin/dpkg returned an error code’ error.
+在 Ubuntu 和其他基于 Debian 的发行版中遇到软件包损坏的问题并不少见。有时，在升级系统或安装软件包时，可能会遇到“Sub-process /usr/bin/dpkg returned an error code”的错误。
+For example, a while back, I tried to upgrade Ubuntu 18.04 and I bumped into the dpkg error as shown below.
+例如，前一段时间，我尝试升级 Ubuntu 18.04，但遇到了如下所示的 dpkg 错误。
+Errors were encountered while processing:
+google-chrome-stable
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+This indicates that the google-chrome-stable package is either broken or corrupt. There are a few workarounds to this problem, so don’t throw in the towel yet or discard your system.
+这表明 google-chrome-stable 包已损坏或已损坏。这个问题有一些解决方法，所以不要认输或丢弃你的系统。
+
+------------------------------------------------------------------------------------
+Solution 1: Reconfiguring the dpkg Package解决方案 1：重新配置 dpkg 包
+One of the triggers of this error is a corrupted dpkg database. This can be caused by the sudden interruption of the installation of a software package. Reconfiguring the database is one way to resolve this issue.
+此错误的触发因素之一是损坏的 dpkg 数据库。这可能是由于软件包安装突然中断造成的。重新配置数据库是解决此问题的一种方法。
+To do this, simply execute the command:
+为此，只需执行以下命令：
+$ sudo dpkg --configure -a
+This reconfigures the unpacked packages that were not installed during the installation process.
+这将重新配置在安装过程中未安装的解压包。
+
+------------------------------------------------------------------------------------
+Solution 2: Force Install the Troublesome Package解决方案 2：强制安装有问题的软件包
+Sometimes, errors can occur during the installation of software packages. When such happens, you can force install the package using the -f option as shown.
+有时，在安装软件包的过程中会出现错误。发生这种情况时，您可以使用 -f 选项强制安装软件包，如图所示。
+$ sudo apt install -f
+OR
+$ sudo apt install --fix-broken
+The -f option & --fix-broken can be interchangeably used to fix broken dependencies resulting from an interrupted package or cached package download.
+-f 选项和 --fix-broken 可以互换使用，以修复因包中断或缓存包下载而导致的损坏的依赖关系。
+
+------------------------------------------------------------------------------------
+Solution 3: Purge the Bad or Corrupted Software Package解决方案 3：清除损坏或损坏的软件包
+If the first two solutions did not fix the problem, you can remove or purge the problematic software package as shown.
+如果前两个解决方案没有解决问题，您可以删除或清除有问题的软件包，如图所示。
+$ sudo apt remove --purge package_name
+For example, in my case, purging the Google chrome package fixed the issue.
+例如，在我的例子中，清除 Google chrome 包解决了这个问题。
+$ sudo apt remove --purge google-chrome-stable
+Then invoke the commands below to remove all the old, unused, and unnecessary packages which also frees up space on your hard drive.
+然后调用下面的命令来删除所有旧的、未使用的和不必要的包，这也会释放硬盘上的空间。
+$ sudo apt clean
+$ sudo apt autoremove
+
+------------------------------------------------------------------------------------
+Solution 4: Remove all the Files Associated with the Package解决方案 4：删除与包关联的所有文件
+Lastly, you can manually remove all the associated with the troublesome package. First, you need to find these files which are located in the /var/lib/dpkg/info directory as shown.
+最后，您可以手动删除所有与麻烦包相关的包。首先，您需要找到位于 /var/lib/dpkg/info 目录中的这些文件，如图所示。
+$ sudo ls -l /var/lib/dpkg/info | grep -i package_name
+After listing the files, you can move them to the /tmp directory as shown
+列出文件后，您可以将它们移动到 /tmp 目录，如图所示
+$ sudo mv /var/lib/dpkg/info/package-name.* /tmp
+Alternatively, you can use the rm command to manually remove the files.
+或者，您可以使用 rm 命令手动删除文件。
+$ sudo rm -r /var/lib/dpkg/info/package-name.*
+Finally, update the package lists as shown:
+最后，更新包列表，如下所示：
+$ sudo apt update
+You can thereafter give it another shot in reinstalling the software package.
+此后，您可以再次尝试重新安装软件包。
+
+------------------------------------------------------------------------------------
+Conclusion结论
+This type of dpkg error points to an issue with the package installer usually caused by the interruption of an installation process or a corrupt dpkg database.
+这种类型的 dpkg 错误表明软件包安装程序存在问题，通常是由安装过程中断或损坏的 dpkg 数据库引起的。
+Any of the above-mentioned solutions should fix this error. If you have come this far, then it’s our hope that the issue has been successfully resolved and that you were able to reinstall your software package.
+上述任何解决方案都应修复此错误。如果您已经走到这一步，那么我们希望问题已成功解决并且您能够重新安装软件包。
