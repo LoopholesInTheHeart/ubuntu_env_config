@@ -10,6 +10,7 @@ sudo apt-get install ntpdate
 2.再输入命令设置系统时间与网络时间同步。（这一步可以换域名）
 
 sudo ntpdate cn.pool.ntp.org
+sudo ntpdate time1.aliyun.com
 
 3.最后输入命令将时间更新到硬件上即可。
 

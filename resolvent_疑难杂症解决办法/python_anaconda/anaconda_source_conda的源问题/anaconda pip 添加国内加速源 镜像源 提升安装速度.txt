@@ -50,9 +50,15 @@ custom_channels:
   pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+ssl_verify: false
+
 最后，cmd 中运行conda clean -i清除索引缓存，保证用的是镜像站提供的索引，便完成了 conda 国内清华镜像源的配置。
 
 完成上述配置之后，便可以直观地享受到 pip 和 conda 安装、升级 python 第三方库所带来的极速快感！！！
+
+ssl 验证问题可以通过以下两种方式之一解决
+1.在命令行中输入conda config --set ssl_verify false修改设置，或者在文件~/.condarc末尾添加一行ssl_verify: false（有则修改即可）
+2.将https改成http
 
 --------------------------------------------------------------------------------------------------------------------------------
 

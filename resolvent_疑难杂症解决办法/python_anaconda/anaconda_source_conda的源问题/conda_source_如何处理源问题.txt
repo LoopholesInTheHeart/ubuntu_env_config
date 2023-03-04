@@ -7,6 +7,10 @@
 划重点:  用户目录下的 .condarc 文件
 如果直接安装有问题，
 可以换conda源之后，切完环境直接用pip装
+ssl 验证问题可以通过以下两种方式之一解决
+1.在命令行中输入conda config --set ssl_verify false修改设置，或者在文件~/.condarc末尾添加一行ssl_verify: false（有则修改即可）
+2.将https改成http
+
 
 Anaconda 镜像使用帮助
 Anaconda 是一个用于科学计算的 Python 发行版，支持 Linux, Mac, Windows, 包含了众多流行的科学计算、数据分析的 Python 包。
@@ -34,6 +38,7 @@ custom_channels:
   pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+ssl_verify: false
 即可添加 Anaconda Python 免费仓库。
 
 运行 conda clean -i 清除索引缓存，保证用的是镜像站提供的索引。
@@ -66,3 +71,4 @@ custom_channels:
   pytorch: https://mirrors.bfsu.edu.cn/anaconda/cloud
   pytorch-lts: https://mirrors.bfsu.edu.cn/anaconda/cloud
   simpleitk: https://mirrors.bfsu.edu.cn/anaconda/cloud
+ssl_verify: false
