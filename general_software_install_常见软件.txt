@@ -20,6 +20,8 @@ sudo apt-get install ttf-wqy-microhei  #文泉驿-微米黑
 sudo apt-get install ttf-wqy-zenhei  #文泉驿-正黑
 sudo apt-get install xfonts-wqy #文泉驿-点阵宋体*
 
+安装播放器
+sudo apt-get  install  vlc
 
 传感器温度监控
 sudo apt install lm-sensors 
