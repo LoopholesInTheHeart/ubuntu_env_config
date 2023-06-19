@@ -1,0 +1,6 @@
+sudo gedit /etc/NetworkManager/nm-system-settings.conf
+然后会打开一个文件，如果显示的是空白就点击打开或是open，
+寻找 /etc/NetworkManager/nm-system-settings.conf，
+把最后一行的“managed=false”改为”managed=true”。
+
+实测2204是sudo gedit /etc/NetworkManager/NetworkManager.conf

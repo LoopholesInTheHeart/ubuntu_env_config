@@ -1,0 +1,5 @@
+首先安装nmap工具
+sudo apt-get install nmap
+
+进行扫描：
+nmap -v -sP 192.168.1.0/24
