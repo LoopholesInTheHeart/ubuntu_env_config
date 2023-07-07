@@ -1,0 +1,34 @@
+sudo service rsyslog restart
+
+sudo service rsyslog stop
+
+sudo service rsyslog start
+
+ 修改
+ /etc/rsyslog.d/50-default.conf 
+
+
+在许多操作系统上，Syslog 已被 rsyslog 取代。因此，在 Debian > 5、Ubuntu > 11.2、Centos 6.x 上，以下命令行将停止它:
+
+ service rsyslog stop
+然后，您可以在启动时禁用它:
+
+ systemctl disable rsyslog
+在启动时再次启用它:
+
+ systemctl enable rsyslog
+
+
+禁用日志
+
+  systemctl mask systemd-journald
+
+通过修改systemd-journald的配置信息，从根源上关闭日志打印
+
+（1）进入Linux命令窗口输入：vim /etc/systemd/journald.conf
+
+（2）进入Vim后，把Storage对应的值改为none，修改完保存退出
+
+（3）更新配置信息：systemctl restart systemd-journald
+
+ 
