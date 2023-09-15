@@ -1,0 +1,2 @@
+curl wttr.in/Shanghai?lang=zh   获取天气
+curl wttr.in/Suzhou?lang=zh     获取天气
